@@ -8,8 +8,8 @@ struct Block{
     char** operations;
 };
 
-void compareFiles(char* files[]);
-char* compareTwoFiles(char* file1, char*file2);
-struct Block* createBlocks(char *operationsFile[]);
+void compareFiles(char* files[],int size);
+void compareTwoFiles(char* file1, char*file2);
+struct Block* createBlocks(char operationsFile[]);
 
 #endif //lib_h

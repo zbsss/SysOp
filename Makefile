@@ -2,10 +2,10 @@ CC = gcc -Wall
 
 static:
 	make clean
-	$(CC) -c lib.c
+	$(CC) -g -c lib.c
 	ar rcs lib.a lib.o
-	$(CC) -c main.c
-	$(CC) main.o lib.a -o main
+	$(CC) -g -c main.c
+	$(CC) -g main.o lib.a -o main
 
 shared:
 	make clean

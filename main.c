@@ -13,7 +13,7 @@ int main(){
     files[0] = a;
     files[1] = b;
 
-    compareFiles(files);
+    compareFiles(files,2);
 
     return 0;
 }
