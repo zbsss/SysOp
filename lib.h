@@ -4,12 +4,12 @@
 void hello();
 
 struct Block{
-    int op_num;
-    char* operations[];
+    int operationNumber;
+    char** operations;
 };
 
-struct Block** MainArray;
-
+void compareFiles(char* files[]);
 char* compareTwoFiles(char* file1, char*file2);
+struct Block* createBlocks(char *operationsFile[]);
 
 #endif //lib_h
