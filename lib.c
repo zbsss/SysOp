@@ -7,7 +7,7 @@ void hello(){
     printf("Hello world!");
 }
 
-void compareFiles(char* files[],int size){
+struct Block** compareFiles(char* files[],int size){
     if(size % 2 != 0){
         printf("Even number of files needed");
         return;
@@ -18,8 +18,10 @@ void compareFiles(char* files[],int size){
 
     for(int i=0; i< size -1 ; i+=2){
         compareTwoFiles(files[i],files[i+1]);
-        mainArray[index++] = createBlocks("tempFile");
+        mainArray[index++] = createBlock("tempFile");
     }
+
+    return mainArray;
 }
 
 void compareTwoFiles(char* file1, char* file2){
@@ -32,7 +34,7 @@ void compareTwoFiles(char* file1, char* file2){
     system(tempFile);
 }
 
-struct Block* createBlocks(char operationsFile[]){
+struct Block* createBlock(char operationsFile[]){
     char** operationsArray = (char**) calloc(1000,sizeof(char *));
     
     FILE * file;
@@ -69,4 +71,29 @@ struct Block* createBlocks(char operationsFile[]){
     system("rm tempFile");
 
     return block;
+}
+
+int getNumberOfOperations(int index, struct Block** blocks){
+    return blocks[index] -> operationNumber;
+}
+
+void deleteBlock(int index, struct Block** blocks, int size){
+    if(index >= size)
+        printf("Cannot delete, index out of range!");
+    else
+    {
+        free(blocks[index]);
+        blocks[index] = NULL;
+    }
+}
+
+void deleteOperation(int index, struct Block* block){
+    if(index >= block->operationNumber)
+        printf("Cannot delete, index out of range!");
+    else
+    {
+        free(block->operations[index]);
+        block->operations[index] = NULL;
+        block->operationNumber--;
+    }
 }
