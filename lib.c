@@ -25,7 +25,7 @@ struct Block** compareFiles(char* files[],int size){
 }
 
 void compareTwoFiles(char* file1, char* file2){
-    char tempFile [strlen(file1) + strlen(file2) + 12];
+    char tempFile [strlen(file1) + strlen(file2) + 50];
     strcpy(tempFile,"diff ");
     strcat(tempFile,file1);
     strcat(tempFile," ");
