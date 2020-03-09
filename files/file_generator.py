@@ -21,13 +21,16 @@ def generate_file(name,args):
         if random.choice([True,False]):
             text += "\n"
     
-    with open(str(name) + ".txt",'w') as file:
+    with open("files/" + str(name) + ".txt",'w') as file:
         file.write(text)
 
 def run(args):
+    names = ""
     for i in range(0,args.num):
         generate_file(i, args)
-    
+        names += "files/" + str(i) + ".txt "
+    with open("names.txt",'w') as file:
+        file.write(names)
 
 def main():
     parser = argparse.ArgumentParser("")

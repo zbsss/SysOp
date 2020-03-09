@@ -10,8 +10,15 @@ static:
 shared:
 	make clean
 	$(CC) -c -fPIC lib.c
-	$(CC) -shared -fPIC -o liblib.so lib.o
-	$(CC) main.c -o main -L. 
+	$(CC) -shared -fPIC -o lib.so lib.o
+	$(CC) -o main main.c -L. lib.so -I . -Wl,-rpath=`pwd`
+
+test:
+	make clean-files
+	python3 files/file_generator.py -num 200 -mw 10000
+	./main compare_pairs `cat names.txt` remove_operation 0 0 remove_block 0
+	#remove_operation 0 0
+	#remove_block 0
 
 clean:
 	rm -f *.o 
@@ -19,3 +26,6 @@ clean:
 	rm -f *.so
 	rm -f tempFile
 	rm -f main
+
+clean-files:
+	rm -f files/*.txt names.txt

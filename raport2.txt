@@ -1,0 +1,59 @@
+compare_pairs: 50 pairs, 100 max number of words
+
+[REAL TIME] Executing action compare_pairs took 0.170000s
+[USER TIME] Executing action compare_pairs took 0.000000s
+[SYSTEM TIME] Executing action compare_pairs took 0.000000s
+
+[REAL TIME] Executing action remove_operation took 0.000000s
+[USER TIME] Executing action remove_operation took 0.000000s
+[SYSTEM TIME] Executing action remove_operation took 0.000000s
+
+[REAL TIME] Executing action remove_block took 0.000000s
+[USER TIME] Executing action remove_block took 0.000000s
+[SYSTEM TIME] Executing action remove_block took 0.000000s
+
+[REAL TIME] Executing main.c took 0.170000s
+[USER TIME] Executing main.c took 0.000000s
+[SYSTEM TIME] Executing main.c took 0.000000s
+
+///////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+
+compare_pairs: 100 pairs, 1000 max number of words
+
+[REAL TIME] Executing action compare_pairs took 0.360000s
+[USER TIME] Executing action compare_pairs took 0.000000s
+[SYSTEM TIME] Executing action compare_pairs took 0.020000s
+
+[REAL TIME] Executing action remove_operation took 0.010000s
+[USER TIME] Executing action remove_operation took 0.000000s
+[SYSTEM TIME] Executing action remove_operation took 0.000000s
+
+[REAL TIME] Executing action remove_block took 0.000000s
+[USER TIME] Executing action remove_block took 0.000000s
+[SYSTEM TIME] Executing action remove_block took 0.000000s
+
+[REAL TIME] Executing main.c took 0.370000s
+[USER TIME] Executing main.c took 0.000000s
+[SYSTEM TIME] Executing main.c took 0.020000s
+
+///////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+
+compare_pairs: 200 pairs, 10000 max number of words
+
+[REAL TIME] Executing action compare_pairs took 4.550000s
+[USER TIME] Executing action compare_pairs took 0.090000s
+[SYSTEM TIME] Executing action compare_pairs took 0.610000s
+
+[REAL TIME] Executing action remove_operation took 0.000000s
+[USER TIME] Executing action remove_operation took 0.000000s
+[SYSTEM TIME] Executing action remove_operation took 0.000000s
+
+[REAL TIME] Executing action remove_block took 0.000000s
+[USER TIME] Executing action remove_block took 0.000000s
+[SYSTEM TIME] Executing action remove_block took 0.000000s
+
+[REAL TIME] Executing main.c took 4.550000s
+[USER TIME] Executing main.c took 0.090000s
+[SYSTEM TIME] Executing main.c took 0.610000s
