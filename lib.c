@@ -10,10 +10,10 @@ void hello(){
 struct Block** compareFiles(char* files[],int size){
     if(size % 2 != 0){
         printf("Even number of files needed");
-        return;
+        return NULL;
     }
 
-    struct Block** mainArray = (struct Block*) calloc(size/2 , sizeof(struct Block *));
+    struct Block** mainArray = (struct Block**) calloc(size/2 , sizeof(struct Block *));
     int index = 0;
 
     for(int i=0; i< size -1 ; i+=2){

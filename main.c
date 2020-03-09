@@ -11,7 +11,7 @@ double calculateTime(clock_t start, clock_t end){
 }
 
 int main(int argNum, char* args[]){
-    struct Blocks** mainArray;
+    struct Block** mainArray;
     int size = 0;
 
     struct tms** programTime = calloc(2,sizeof(struct tms*));
@@ -33,7 +33,7 @@ int main(int argNum, char* args[]){
 
         if(strcmp(argument,"compare_pairs") == 0){
             
-            char**  files = (char*) calloc(1000,sizeof(char*));
+            char**  files = (char**) calloc(1000,sizeof(char*));
             while(i + 2 < argNum &&
                   strstr(args[i + 1],".txt") != NULL &&
                   strstr(args[i + 2],".txt") != NULL){
