@@ -1,0 +1,56 @@
+static O1:
+200 pairs, 10000 max num od words
+
+[REAL TIME] Executing action compare_pairs took 4.730000s
+[USER TIME] Executing action compare_pairs took 0.080000s
+[SYSTEM TIME] Executing action compare_pairs took 0.610000s
+
+[REAL TIME] Executing action remove_operation took 0.000000s
+[USER TIME] Executing action remove_operation took 0.000000s
+[SYSTEM TIME] Executing action remove_operation took 0.000000s
+
+[REAL TIME] Executing action remove_block took 0.000000s
+[USER TIME] Executing action remove_block took 0.000000s
+[SYSTEM TIME] Executing action remove_block took 0.000000s
+
+[REAL TIME] Executing main.c took 4.730000s
+[USER TIME] Executing main.c took 0.080000s
+[SYSTEM TIME] Executing main.c took 0.610000s
+
+static O2:
+200 pairs, 10000 max num od words
+
+[REAL TIME] Executing action compare_pairs took 4.390000s
+[USER TIME] Executing action compare_pairs took 0.060000s
+[SYSTEM TIME] Executing action compare_pairs took 0.580000s
+
+[REAL TIME] Executing action remove_operation took 0.000000s
+[USER TIME] Executing action remove_operation took 0.000000s
+[SYSTEM TIME] Executing action remove_operation took 0.000000s
+
+[REAL TIME] Executing action remove_block took 0.000000s
+[USER TIME] Executing action remove_block took 0.000000s
+[SYSTEM TIME] Executing action remove_block took 0.000000s
+
+[REAL TIME] Executing main.c took 4.390000s
+[USER TIME] Executing main.c took 0.060000s
+[SYSTEM TIME] Executing main.c took 0.580000s
+
+static Os:
+200 pairs, 10000 max num od words
+
+[REAL TIME] Executing action compare_pairs took 5.020000s
+[USER TIME] Executing action compare_pairs took 0.080000s
+[SYSTEM TIME] Executing action compare_pairs took 0.660000s
+
+[REAL TIME] Executing action remove_operation took 0.000000s
+[USER TIME] Executing action remove_operation took 0.000000s
+[SYSTEM TIME] Executing action remove_operation took 0.000000s
+
+[REAL TIME] Executing action remove_block took 0.000000s
+[USER TIME] Executing action remove_block took 0.000000s
+[SYSTEM TIME] Executing action remove_block took 0.000000s
+
+[REAL TIME] Executing main.c took 5.020000s
+[USER TIME] Executing main.c took 0.080000s
+[SYSTEM TIME] Executing main.c took 0.660000s

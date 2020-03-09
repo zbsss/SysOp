@@ -7,6 +7,27 @@ static:
 	$(CC) -g -c main.c
 	$(CC) -g main.o lib.a -o main
 
+static-O1:
+	make clean
+	$(CC) -g -c lib.c
+	ar rcs lib.a lib.o
+	$(CC) -g -c main.c
+	$(CC) -g main.o lib.a -o main -O1
+
+static-O2:
+	make clean
+	$(CC) -g -c lib.c
+	ar rcs lib.a lib.o
+	$(CC) -g -c main.c
+	$(CC) -g main.o lib.a -o main -O2
+
+static-Os:
+	make clean
+	$(CC) -g -c lib.c
+	ar rcs lib.a lib.o
+	$(CC) -g -c main.c
+	$(CC) -g main.o lib.a -o main -Os
+
 shared:
 	make clean
 	$(CC) -c -fPIC lib.c
