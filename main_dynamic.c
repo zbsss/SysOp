@@ -1,3 +1,6 @@
+#include <dlfcn.h>
+
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -6,11 +9,21 @@
 #include <unistd.h>
 #include "lib.h"
 
+
 double calculateTime(clock_t start, clock_t end){
     return (double)(end - start)/(double)(sysconf(_SC_CLK_TCK));
 }
 
 int main(int argNum, char* args[]){
+    void* handle = dlopen("./lib.so",RTLD_LAZY);
+
+    if(!handle) 
+        return -1;
+    
+    struct Block** (*compareFiles)() =(struct Block** (*)()) dlsym(handle,"compareFiles");
+    void (*deleteBlock)() = (void (*)())dlsym(handle,"deleteBlock");
+    void (*deleteOperation)() = (void (*)())dlsym(handle,"deleteOperation");
+
     struct Blocks** mainArray;
     int size = 0;
 
@@ -42,18 +55,18 @@ int main(int argNum, char* args[]){
                 size += 2;
                 i += 2;
             }
-            mainArray = compareFiles(files,size);
+            mainArray = (*compareFiles)(files,size);
         }
         else if(strcmp(argument,"remove_block") == 0){
             int blockIndex = atoi(args[i+1]);
-            deleteBlock(blockIndex,mainArray,size);
+            (*deleteBlock)(blockIndex,mainArray,size);
             i++;
         }
         else if(strcmp(argument,"remove_operation") == 0){
             int blockIndex = atoi(args[i+1]);
             int operationIndex = atoi(args[i+2]);
 
-            deleteOperation(operationIndex,mainArray[blockIndex]);
+            (*deleteOperation)(operationIndex,mainArray[blockIndex]);
             i+=2;
         }
         else
@@ -71,6 +84,9 @@ int main(int argNum, char* args[]){
     printf("[REAL TIME] Executing main.c took %fs\n",calculateTime(realTimeProgram[0],realTime[1]));
     printf("[USER TIME] Executing main.c took %fs\n",calculateTime(programTime[0]->tms_utime,programTime[1]->tms_utime));
     printf("[SYSTEM TIME] Executing main.c took %fs\n",calculateTime(programTime[0]->tms_stime,programTime[1]->tms_stime));
+
+
+    dlclose(handle);
 
     return 0;
 }

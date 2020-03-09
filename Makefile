@@ -13,6 +13,12 @@ shared:
 	$(CC) -shared -fPIC -o lib.so lib.o
 	$(CC) -o main main.c -L. lib.so -I . -Wl,-rpath=`pwd`
 
+dll:
+	make clean
+	$(CC) -fPIC -c lib.c -o lib.o
+	$(CC) -Wl,-rpath=. -fPIC -shared -o lib.so lib.o
+	$(CC) -fPIC -L. -o main main_dynamic.c -ldl -D DYNAMIC
+
 test:
 	make clean-files
 	python3 files/file_generator.py -num 200 -mw 10000
