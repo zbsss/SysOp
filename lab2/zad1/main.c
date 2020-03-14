@@ -60,6 +60,8 @@ void sort_sys(char* file, int records, int bytes){
         error("Unable to open file");
 
     qsort_sys(fd, records, bytes, 0, records - 1);
+    
+    close(fd);
 }
 
 void qsort_sys(int fd, int records, int bytes, int low, int high){
@@ -94,6 +96,8 @@ void sort_lib(char* fileName, int records, int bytes){
         error("Unable to open file");
 
     qsort_lib(file, records, bytes, 0, records - 1);
+
+    fclose(file);
 }
 
 void qsort_lib(FILE* file, int records, int bytes, int low, int high){
@@ -122,6 +126,44 @@ int partition_lib(FILE * file, int records, int bytes, int low, int high){
     return i + 1;
 }
 
+void copy_sys(char* file1Name, char* file2Name, int records, int bytes){
+    int fd1 = open(file1Name,O_RDONLY);
+    if(fd1 < 0)
+        error("Unable to open file1 while copying (sys)");
+    
+    int fd2 = open(file2Name,O_WRONLY|O_CREAT);
+    if(fd2 < 0)
+        error("Unable to open file2 while copying (sys)");
+
+    char buffer[bytes+1];
+    for(int i=0; i<records; i++){
+        read(fd1, buffer, bytes + 1);
+        write(fd2, buffer, bytes + 1);
+    }
+
+    close(fd1);
+    close(fd2);
+}
+
+void copy_lib(char* file1Name, char* file2Name, int records, int bytes){
+    FILE* file1 = fopen(file1Name,"r");
+    if(!file1)
+        error("Unable to open file1 while copying (lib)");
+    
+    FILE* file2 = fopen(file2Name,"w");
+    if(!file2)
+        error("Unable to open file2 while copying (lib)");
+
+    char *buffer = calloc(bytes+1, sizeof(char));
+    for(int i=0; i<records; i++){
+        fread(buffer,sizeof(char), bytes+1, file1);
+        fwrite(buffer, sizeof(char), bytes+1, file2);
+    }
+
+    fclose(file1);
+    fclose(file2);
+}
+
 int main(int argc, char* args[]){
     
     for(int i = 1; i < argc; i++){
@@ -134,18 +176,37 @@ int main(int argc, char* args[]){
                 i += 3;
             }
             else
-                printf("Not enough arguments for generating a file");
+                error("Not enough arguments for generating a file");
         }
         else if(strcmp(command, "sort") == 0){
-            char* arg = args[i+1];
-            if(strcmp(arg, "sys")==0){
-                // fileName = args[i+2], records = args[i+3], bytes =args[i+4]
-                sort_sys(args[i+2],atoi(args[i+3]),atoi(args[i+4]));
+            if(i + 4 < argc){
+                char* arg = args[i+1];
+
+                if(strcmp(arg, "sys")==0){
+                    // fileName = args[i+2], records = args[i+3], bytes =args[i+4]
+                    sort_sys(args[i+2],atoi(args[i+3]),atoi(args[i+4]));
+                }
+                else if(strcmp(arg, "lib")==0){
+                    // fileName = args[i+2], records = args[i+3], bytes =args[i+4]
+                    sort_sys(args[i+2],atoi(args[i+3]),atoi(args[i+4]));
+                }
+                i += 4;
             }
-            else if(strcmp(arg, "lib")==0){
-                // fileName = args[i+2], records = args[i+3], bytes =args[i+4]
-                sort_sys(args[i+2],atoi(args[i+3]),atoi(args[i+4]));
+            else{
+                error("Not enough arguments to sort");
             }
+        }
+        else if(strcmp(command, "copy") == 0){
+            if(i + 5 < argc){
+                char * argument = args[i+1];
+                if(strcmp(argument, "sys")==0)
+                    copy_sys(args[i+2],args[i+3],atoi(args[i+4]),atoi(args[i+5]));
+                else if( strcmp(argument, "lib")==0)
+                    copy_lib(args[i+2],args[i+3],atoi(args[i+4]),atoi(args[i+5]));
+                i += 5;
+            }
+            else
+                error("Not enough arguments to copy");
         }
     }
 
