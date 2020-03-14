@@ -88,6 +88,40 @@ int partition_sys(int fd, int records, int bytes, int low, int high){
     return i + 1;
 }
 
+void sort_lib(char* fileName, int records, int bytes){
+    FILE* file = fopen(fileName,'r+');
+    if(!file)
+        error("Unable to open file");
+
+    qsort_lib(file, records, bytes, 0, records - 1);
+}
+
+void qsort_lib(FILE* file, int records, int bytes, int low, int high){
+    if(low < high){
+        int q = partition_lib(file, records, bytes, low, high);
+        qsort_lib(file, records, bytes, low, q - 1);
+        qsort_lib(file, records, bytes, q + 1, high);
+    }
+}
+
+int partition_lib(FILE * file, int records, int bytes, int low, int high){
+    char* x = read_lib(file, high, bytes);
+    int i = low - 1;
+
+    for(int j=low; j<high; j++){
+        char* y = read_lib(file, j, bytes);
+
+        if(y[0] <= x[0]){
+            i++;
+            write_lib(file, read_sys(file, i, bytes), j, bytes);
+            write_lib(file, y, i, bytes);
+        }
+    }
+    write_lib(file, read_sys(file, i + 1, bytes), high, bytes);
+    write_lib(file, x, i + 1, bytes);
+    return i + 1;
+}
+
 int main(int argc, char* args[]){
     
     for(int i = 1; i < argc; i++){
@@ -105,6 +139,10 @@ int main(int argc, char* args[]){
         else if(strcmp(command, "sort") == 0){
             char* arg = args[i+1];
             if(strcmp(arg, "sys")==0){
+                // fileName = args[i+2], records = args[i+3], bytes =args[i+4]
+                sort_sys(args[i+2],atoi(args[i+3]),atoi(args[i+4]));
+            }
+            else if(strcmp(arg, "lib")==0){
                 // fileName = args[i+2], records = args[i+3], bytes =args[i+4]
                 sort_sys(args[i+2],atoi(args[i+3]),atoi(args[i+4]));
             }
