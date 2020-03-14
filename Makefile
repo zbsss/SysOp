@@ -42,7 +42,7 @@ dll:
 
 test:
 	make clean-files
-	python3 files/file_generator.py -num 200 -mw 10000
+	python3 files/file_generator.py -num 10 -mw 100
 	./main compare_pairs `cat names.txt` remove_operation 0 0 remove_block 0
 	#remove_operation 0 0
 	#remove_block 0
