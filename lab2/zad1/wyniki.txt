@@ -23,6 +23,7 @@ test-1:
 [SYSTEM TIME] Executing action sort lib took 7.110000s
 
 ./main generate data2.txt 15000 1 copy sys data2.txt sdata2.txt 15000 1 sort sys sdata2.txt 15000 1 copy lib data2.txt ldata2.txt 15000 1 sort lib ldata2.txt 15000 1
+
 [REAL TIME] Executing action generate _ took 0.020000s
 [USER TIME] Executing action generate  _ took 0.000000s
 [SYSTEM TIME] Executing action generate _ took 0.000000s
@@ -48,6 +49,7 @@ test-1:
 test-4:
 
 ./main generate data.txt 10000 4 copy sys data.txt sdata.txt 10000 4 sort sys sdata.txt 10000 4 copy lib data.txt ldata.txt 10000 4 sort lib ldata.txt 10000 4
+
 [REAL TIME] Executing action generate _ took 0.020000s
 [USER TIME] Executing action generate  _ took 0.000000s
 [SYSTEM TIME] Executing action generate _ took 0.000000s
@@ -69,6 +71,7 @@ test-4:
 [SYSTEM TIME] Executing action sort lib took 7.040000s
 
 ./main generate data2.txt 15000 4 copy sys data2.txt sdata2.txt 15000 4 sort sys sdata2.txt 15000 4 copy lib data2.txt ldata2.txt 15000 4 sort lib ldata2.txt 15000 4
+
 [REAL TIME] Executing action generate _ took 0.020000s
 [USER TIME] Executing action generate  _ took 0.000000s
 [SYSTEM TIME] Executing action generate _ took 0.000000s
@@ -94,6 +97,7 @@ test-4:
 test-512:
 
 ./main generate data.txt 2000 512 copy sys data.txt sdata.txt 2000 512 sort sys sdata.txt 2000 512 copy lib data.txt ldata.txt 2000 512 sort lib ldata.txt 2000 512
+
 [REAL TIME] Executing action generate _ took 0.180000s
 [USER TIME] Executing action generate  _ took 0.000000s
 [SYSTEM TIME] Executing action generate _ took 0.000000s
@@ -115,6 +119,7 @@ test-512:
 [SYSTEM TIME] Executing action sort lib took 0.310000s
 
 ./main generate data2.txt 4000 512 copy sys data2.txt sdata2.txt 4000 512 sort sys sdata2.txt 4000 512 copy lib data2.txt ldata2.txt 4000 512 sort lib ldata2.txt 4000 512
+
 [REAL TIME] Executing action generate _ took 0.350000s
 [USER TIME] Executing action generate  _ took 0.000000s
 [SYSTEM TIME] Executing action generate _ took 0.000000s
@@ -140,6 +145,7 @@ test-512:
 test-1024:
 
 ./main generate data.txt 2000 1024 copy sys data.txt sdata.txt 2000 1024 sort sys sdata.txt 2000 1024 copy lib data.txt ldata.txt 2000 1024 sort lib ldata.txt 2000 1024
+
 [REAL TIME] Executing action generate _ took 0.350000s
 [USER TIME] Executing action generate  _ took 0.000000s
 [SYSTEM TIME] Executing action generate _ took 0.000000s
@@ -161,6 +167,7 @@ test-1024:
 [SYSTEM TIME] Executing action sort lib took 0.360000s
 
 ./main generate data2.txt 4000 1024 copy sys data2.txt sdata2.txt 4000 1024 sort sys sdata2.txt 4000 1024 copy lib data2.txt ldata2.txt 4000 1024 sort lib ldata2.txt 4000 1024
+
 [REAL TIME] Executing action generate _ took 0.650000s
 [USER TIME] Executing action generate  _ took 0.000000s
 [SYSTEM TIME] Executing action generate _ took 0.000000s
@@ -185,7 +192,95 @@ test-1024:
 
 test-4096:
 
+./main generate data.txt 2000 4096 copy sys data.txt sdata.txt 2000 4096 sort sys sdata.txt 2000 4096 copy lib data.txt ldata.txt 2000 4096 sort lib ldata.txt 2000 4096
+
+[REAL TIME] Executing action generate _ took 1.360000s
+[USER TIME] Executing action generate  _ took 0.000000s
+[SYSTEM TIME] Executing action generate _ took 0.000000s
+
+[REAL TIME] Executing action copy sys took 0.030000s
+[USER TIME] Executing action copy  sys took 0.000000s
+[SYSTEM TIME] Executing action copy sys took 0.000000s
+
+[REAL TIME] Executing action sort sys took 1.420000s
+[USER TIME] Executing action sort  sys took 0.090000s
+[SYSTEM TIME] Executing action sort sys took 0.580000s
+
+[REAL TIME] Executing action copy lib took 0.020000s
+[USER TIME] Executing action copy  lib took 0.010000s
+[SYSTEM TIME] Executing action copy lib took 0.010000s
+
+[REAL TIME] Executing action sort lib took 1.450000s
+[USER TIME] Executing action sort  lib took 0.090000s
+[SYSTEM TIME] Executing action sort lib took 0.580000s
+
+./main generate data2.txt 4000 4096 copy sys data2.txt sdata2.txt 4000 4096 sort sys sdata2.txt 4000 4096 copy lib data2.txt ldata2.txt 4000 4096 sort lib ldata2.txt 4000 4096
+
+[REAL TIME] Executing action generate _ took 2.460000s
+[USER TIME] Executing action generate  _ took 0.000000s
+[SYSTEM TIME] Executing action generate _ took 0.000000s
+
+[REAL TIME] Executing action copy sys took 0.050000s
+[USER TIME] Executing action copy  sys took 0.000000s
+[SYSTEM TIME] Executing action copy sys took 0.010000s
+
+[REAL TIME] Executing action sort sys took 5.110000s
+[USER TIME] Executing action sort  sys took 0.460000s
+[SYSTEM TIME] Executing action sort sys took 2.060000s
+
+[REAL TIME] Executing action copy lib took 0.050000s
+[USER TIME] Executing action copy  lib took 0.000000s
+[SYSTEM TIME] Executing action copy lib took 0.020000s
+
+[REAL TIME] Executing action sort lib took 5.180000s
+[USER TIME] Executing action sort  lib took 0.420000s
+[SYSTEM TIME] Executing action sort lib took 2.100000s
 
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
+test-8192:
+
+./main generate data.txt 2000 8192 copy sys data.txt sdata.txt 2000 8192 sort sys sdata.txt 2000 8192 copy lib data.txt ldata.txt 2000 8192 sort lib ldata.txt 2000 8192
+[REAL TIME] Executing action generate _ took 1.300000s
+[USER TIME] Executing action generate  _ took 0.000000s
+[SYSTEM TIME] Executing action generate _ took 0.000000s
+
+[REAL TIME] Executing action copy sys took 0.040000s
+[USER TIME] Executing action copy  sys took 0.000000s
+[SYSTEM TIME] Executing action copy sys took 0.040000s
+
+[REAL TIME] Executing action sort sys took 5.660000s
+[USER TIME] Executing action sort  sys took 0.510000s
+[SYSTEM TIME] Executing action sort sys took 5.100000s
+
+[REAL TIME] Executing action copy lib took 0.140000s
+[USER TIME] Executing action copy  lib took 0.010000s
+[SYSTEM TIME] Executing action copy lib took 0.100000s
+
+[REAL TIME] Executing action sort lib took 10.890000s
+[USER TIME] Executing action sort  lib took 0.600000s
+[SYSTEM TIME] Executing action sort lib took 10.140000s
+
+./main generate data2.txt 4000 8192 copy sys data2.txt sdata2.txt 4000 8192 sort sys sdata2.txt 4000 8192 copy lib data2.txt ldata2.txt 4000 8192 sort lib ldata2.txt 4000 8192
+
+[REAL TIME] Executing action generate _ took 2.390000s
+[USER TIME] Executing action generate  _ took 0.000000s
+[SYSTEM TIME] Executing action generate _ took 0.000000s
+
+[REAL TIME] Executing action copy sys took 0.050000s
+[USER TIME] Executing action copy  sys took 0.000000s
+[SYSTEM TIME] Executing action copy sys took 0.020000s
+
+[REAL TIME] Executing action sort sys took 13.150000s
+[USER TIME] Executing action sort  sys took 0.900000s
+[SYSTEM TIME] Executing action sort sys took 8.930000s
+
+[REAL TIME] Executing action copy lib took 0.140000s
+[USER TIME] Executing action copy  lib took 0.000000s
+[SYSTEM TIME] Executing action copy lib took 0.060000s
+
+[REAL TIME] Executing action sort lib took 30.940000s
+[USER TIME] Executing action sort  lib took 0.760000s
+[SYSTEM TIME] Executing action sort lib took 7.450000s
 
