@@ -6,7 +6,17 @@ compile:
 clean:
 	rm -f main
 
-run:
+test:
 	make clean
 	make compile
-	./main ../.. -mtime +3 -maxdepth 5
+	./main ../.. -mtime +3 -maxdepth 3
+	./main ../.. -mtime 3 -maxdepth 3
+	./main ../.. -mtime -3 -maxdepth 3
+	./main ../.. -atime +3 -maxdepth 3
+	./main ../.. -atime 3 -maxdepth 3
+	./main ../.. -atime -3 -maxdepth 3
+
+simple-test:
+	make clean
+	make compile
+	./main ../.. -mtime 2 -maxdepth 5

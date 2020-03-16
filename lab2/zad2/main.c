@@ -1,3 +1,4 @@
+#define _XOPEN_SOURCE 500
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -13,6 +14,11 @@
 #include <sys/types.h>
 #include <math.h>
 #include <pwd.h>
+#include <ftw.h>
+
+char* option_nftw;
+char* arg_nftw;
+int depth_nftw;
 
 char* file_type(int st_mode){
     if(S_ISDIR(st_mode) != 0)
@@ -46,14 +52,9 @@ int compare_dates(struct stat* stats, char* option, char* arg){
         perror("Invalid argument");
 
     int diff =  (int)(difftime(real_time, file_time)/86400);
-    int days = abs((int)strtol(arg,NULL,10));
+    int days = abs((int)strtol(arg, NULL, 10));
     char sign =  arg[0];
     
-    //printf("%d",days);
-    // printf("%ld\n",real_time);
-    // printf("%ld\n",file_time);
-    // printf("%d\n",diff);
-
     if (sign == '+'){
         return diff > days;
     }
@@ -65,7 +66,18 @@ int compare_dates(struct stat* stats, char* option, char* arg){
     }
 }
 
-void _stat(char* dir, char* option, char* argument, int depth)
+void display_info(char* absPath, struct stat* stats){
+    printf("\nPath: %s\n"
+                        "Type: %s\n"
+                        "Size: %ld\n",
+                        absPath,
+                        file_type(stats->st_mode),
+                        stats->st_size);
+    printf("Last mod: %s",ctime(&stats->st_mtime));
+    printf("Last acc: %s",ctime(&stats->st_atime));
+}
+
+void find_stat(char* dir, char* option, char* argument, int depth)
 {
     if(depth == 0)
         return;
@@ -75,8 +87,6 @@ void _stat(char* dir, char* option, char* argument, int depth)
         perror("Unable to open directory");
 
     struct dirent *file;
-    struct tm* modTime;
-    struct tm* accTime;
     char* absPath = (char*) calloc(1000,sizeof(char));
     char* nextPath = (char*) calloc(1000,sizeof(char));
     struct stat stats;
@@ -96,18 +106,11 @@ void _stat(char* dir, char* option, char* argument, int depth)
         if(strcmp(file->d_name, ".") != 0 && strcmp(file->d_name, "..") != 0){
             
             if(compare_dates(&stats, option, argument)){
-                printf("\nPath: %s\n"
-                        "Type: %s\n"
-                        "Size: %ld\n",
-                        absPath,
-                        file_type(stats.st_mode),
-                        stats.st_size);
-                printf("Last mod: %s",ctime(&stats.st_mtime));
-                printf("Last acc: %s",ctime(&stats.st_atime));
+                display_info(absPath,&stats);
             }
 
             if(file->d_type == 4)
-                _stat(nextPath,option, argument, depth - 1);
+                find_stat(nextPath,option, argument, depth - 1);
 
         }
     }
@@ -117,6 +120,24 @@ void _stat(char* dir, char* option, char* argument, int depth)
     free(file);
     closedir(directory);
 }
+
+int display_nftw(const char* path, const struct stat* stats, int typeflag, struct FTW* ftw_buf){
+    if(depth_nftw >=0 && ftw_buf->level > depth_nftw)
+        return 0;
+    
+    char* absPath = (char*) calloc(1000,sizeof(char));
+    realpath(path, absPath);
+
+    struct stat* scpy = (struct stat*) stats;
+
+    if(compare_dates(scpy, option_nftw, arg_nftw)){
+        display_info(absPath, scpy);
+    }
+    free(absPath);
+    return 0;
+}
+
+
 
 int main(int argc, char* args[]){
     if(argc < 2){
@@ -147,9 +168,15 @@ int main(int argc, char* args[]){
                 perror("Not enough arguments");
        }
     }
+    
+    // printf("\n#########--stat--########\n");
+    // find_stat(path, time_option, time_arg, maxdepth);
 
-    _stat(path, time_option, time_arg, maxdepth);
-
+    printf("\n#########--nftw--########\n");
+    option_nftw = time_option;
+    arg_nftw = time_arg;
+    depth_nftw = maxdepth;
+    nftw(path, display_nftw, 10, FTW_PHYS);
 
     return 0;
 }
