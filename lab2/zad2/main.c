@@ -169,8 +169,8 @@ int main(int argc, char* args[]){
        }
     }
     
-    // printf("\n#########--stat--########\n");
-    // find_stat(path, time_option, time_arg, maxdepth);
+    printf("\n#########--stat--########\n");
+    find_stat(path, time_option, time_arg, maxdepth);
 
     printf("\n#########--nftw--########\n");
     option_nftw = time_option;
