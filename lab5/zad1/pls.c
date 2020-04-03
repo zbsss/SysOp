@@ -28,6 +28,14 @@ int main(int argc, char** args){
     size_t len = 0;
 
     while((readl = getline(&line, &len, file) != -1)){
+        
+        //doesn't work dunno why
+        if(line[strlen(line)-1] == '\n'){
+            //remove newline
+            line[strlen(line)-1] = '\0';
+            readl--;
+        }
+
         char* token = strtok(line,"|");
         char* buff[MAX_PIPED];
         int j = 0;
@@ -44,10 +52,6 @@ int main(int argc, char** args){
             arguments[k + 1] = buff[k];
         }
 
-        //test
-        for(int k = 0; k < j+2 ; k++){
-            printf(arguments[k]);
-        }
 
         int pd[2];
         pipe(pd);
@@ -60,11 +64,18 @@ int main(int argc, char** args){
             abort();
         }
 
+        //rodzic  wczytuje i wypisuje wynik programu ./test z pipe'a
         close(pd[1]);
-        char line[1000];
-        int n = read( pd[0], line, 1000);
-        write(STDOUT_FILENO, line, n);
+        char output[100];
+        int n; 
 
+        // dup2(pd[0],STDIN_FILENO);
+        // n = fgets(line, sizeof(line), stdin );
+        // printf(line);
+
+        n = read(pd[0], output, 100);
+        //printf(line);
+        write(STDOUT_FILENO, output, n);
     }
     return 0;
 }

@@ -30,6 +30,6 @@ int main(int argc, char** args){
     }
 
     execlp(args[i],args[i],NULL);
-    perror("exec error2");
+    perror(args[i]);
     abort();
 }
