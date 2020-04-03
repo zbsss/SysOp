@@ -1,13 +1,12 @@
 test:
-	gcc -Wall -g test.c -o test
-
-pls: 
-	gcc -Wall -g pls.c -o pls
+	make compile
+	./main arguments
 
 compile:
+	make clean
 	gcc -Wall -g main.c -o main
+	gcc -Wall -g child.c -o child
 
 clean:
-	rm -f test
-	rm -f pls
-	rm -f main
+	rm -f -r child
+	rm -f -r main
