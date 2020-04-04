@@ -11,8 +11,8 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-#define MAX_ARGUMENTS 2
-#define MAX_PIPED 3
+#define MAX_ARGUMENTS 5
+#define MAX_PIPED 5
 
 int main(int argc, char** args){
 
@@ -32,15 +32,15 @@ int main(int argc, char** args){
         if(line[strlen(line)-1] == '\n'){
             //remove newline
             line[strlen(line)-1] = '\0';
-            readl--;
         }
 
-        char* token = strtok(line,"|");
-        char* buff[MAX_PIPED];
+        char* token = strtok(line," ");
+        char* buff[MAX_PIPED * (MAX_ARGUMENTS+1)];
         int j = 0;
         while(token != NULL){
             buff[j++] = token;
-            token = strtok(NULL,"|");
+
+            token = strtok(NULL," ");
         }
 
         //Przepisuje tablice zeby dac ja do exec*
@@ -50,7 +50,6 @@ int main(int argc, char** args){
         for(int k = 0; k < j ; k++){
             arguments[k + 1] = buff[k];
         }
-
 
         int pd[2];
         pipe(pd);

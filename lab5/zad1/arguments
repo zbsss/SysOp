@@ -1,3 +1,2 @@
-ls|wc|wc
-ls|wc
-ls|wc|wc
+ls -l | wc -l | wc
+ls -a | wc
