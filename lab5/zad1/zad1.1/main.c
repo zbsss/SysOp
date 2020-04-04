@@ -1,11 +1,3 @@
-W czytujemy linijki z pliku
-Dla kazdej linijki tworzymy tyle procesow ile jest komend. 
-Procesy kolejnych komend z linii sa polaczone potokami (plynie w prawo) i przekazuja swoje wyjscie na wejscie kolejnej komendy.
-Interpreter (main) czeka az wszystko sie wykona i wypisujemy wynik (chyba xd)
-Potem kolejna linijka.
-
-Todo!!! - dodac zwalnianie pamieci
-
 #define _XOPEN_SOURCE 500
 #include <stdlib.h>
 #include <stdio.h>
@@ -19,8 +11,8 @@ Todo!!! - dodac zwalnianie pamieci
 #include <sys/wait.h>
 #include <unistd.h>
 
-#define MAX_ARGUMENTS 2
-#define MAX_PIPED 3
+#define MAX_ARGUMENTS 5
+#define MAX_PIPED 5
 
 int main(int argc, char** args){
 
@@ -35,20 +27,22 @@ int main(int argc, char** args){
     char* line;
     size_t len = 0;
 
+    int i=1;
+
     while((readl = getline(&line, &len, file) != -1)){
         
         if(line[strlen(line)-1] == '\n'){
             //remove newline
             line[strlen(line)-1] = '\0';
-            readl--;
         }
 
-        char* token = strtok(line,"|");
-        char* buff[MAX_PIPED];
+        char* token = strtok(line," ");
+        char* buff[MAX_PIPED * (MAX_ARGUMENTS+1)];
         int j = 0;
         while(token != NULL){
             buff[j++] = token;
-            token = strtok(NULL,"|");
+
+            token = strtok(NULL," ");
         }
 
         //Przepisuje tablice zeby dac ja do exec*
@@ -58,7 +52,6 @@ int main(int argc, char** args){
         for(int k = 0; k < j ; k++){
             arguments[k + 1] = buff[k];
         }
-
 
         int pd[2];
         pipe(pd);
@@ -71,12 +64,19 @@ int main(int argc, char** args){
             abort();
         }
 
+
         //rodzic  wczytuje i wypisuje wynik programu ./child z pipe'a
+        printf("============== executing line: %d ==============\n",i);
+
         close(pd[1]);
         char output[100];
         int n; 
         n = read(pd[0], output, 100);
         write(STDOUT_FILENO, output, n);
+
+        i++;
+        printf("\n");
+
     }
     return 0;
 }

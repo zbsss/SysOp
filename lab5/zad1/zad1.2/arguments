@@ -1,0 +1,6 @@
+ls -l | wc | wc
+ls -l | wc
+ls | wc
+ls -l
+ls -a
+cat arguments

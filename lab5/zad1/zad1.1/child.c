@@ -13,7 +13,7 @@
 #define MAX_PIPED 5
 
 typedef struct command{
-    char** args; //array for command and it's arguments
+    char** args; //array for a command and it's arguments
     int size;
 }command;
 

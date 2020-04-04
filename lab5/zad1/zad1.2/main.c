@@ -27,6 +27,8 @@ int main(int argc, char** args){
     char* line;
     size_t len = 0;
 
+    int i = 1;
+
     while((readl = getline(&line, &len, file) != -1)){
         
         if(line[strlen(line)-1] == '\n'){
@@ -38,36 +40,33 @@ int main(int argc, char** args){
         char* buff[MAX_PIPED * (MAX_ARGUMENTS+1)];
         int j = 0;
         while(token != NULL){
+
             buff[j++] = token;
 
             token = strtok(NULL," ");
         }
 
-        //Przepisuje tablice zeby dac ja do exec*
-        char* arguments[j+2];
-        arguments[0] = "./child";
-        arguments[j+1] = NULL;
+
+        char* arguments = calloc(1000,sizeof(char));
+        strcpy(arguments, "./child");
         for(int k = 0; k < j ; k++){
-            arguments[k + 1] = buff[k];
+            strcat(arguments, " ");
+            strcat(arguments, buff[k]);
         }
 
-        int pd[2];
-        pipe(pd);
 
-        if (fork() == 0){
-            close(pd[0]);
-            dup2(pd[1],STDOUT_FILENO); //To co mialo isc na output dziecka idzie do pipe
-            execv("./child",arguments);
-            perror("exec error3");
-            abort();
-        }
+        FILE *fpout;
+        fpout = popen(arguments,"r");
 
-        //rodzic  wczytuje i wypisuje wynik programu ./child z pipe'a
-        close(pd[1]);
-        char output[100];
-        int n; 
-        n = read(pd[0], output, 100);
-        write(STDOUT_FILENO, output, n);
+        printf("============== executing line: %d ==============\n",i);
+
+        char output[1000];
+        while(fgets(output, 1000, fpout) != NULL)
+            if(fputs(output,stdout) == EOF)
+                perror("fputs puts error to piep1");
+        
+        i++;
+        printf("\n");
     }
     return 0;
 }
