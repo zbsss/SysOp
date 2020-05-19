@@ -29,8 +29,8 @@ int main(int argc, char *argv[])
     char* consumer = "./consumer";
     char* cons_path = "./consumed_resources/output";
 
-    char* N_prod = "3";
-    char* N_cons = "10"; 
+    char* N_prod = "5";
+    char* N_cons = "12"; 
 
     mkfifo("fifo", S_IRUSR | S_IWUSR);
 

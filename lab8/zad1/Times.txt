@@ -1,0 +1,14 @@
+
+Mode: sign    Threads: 4
+Thread 140400722634496:    1556 ms
+Thread 140400722634496:    1048 ms
+Thread 140400722634496:    1101 ms
+Thread 140400722634496:    1852 ms
+Total time: 6574 ms
+
+Mode: interleaved    Threads: 4
+Thread 140332939290368:    1511 ms
+Thread 140332939290368:    685 ms
+Thread 140332939290368:    472 ms
+Thread 140332939290368:    332 ms
+Total time: 3772 ms
